@@ -12,7 +12,7 @@ import { RestaurantsScreen } from './src/features/restaurants/screens/restaurant
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import restaurantsRequest from './src/services/restaurants/restaurants.service';
+import { RestaurantContextProvider } from './src/services/restaurants/restaurants.context';
 
 function MapScreen() {
     return (
@@ -63,13 +63,18 @@ export default function App() {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <NavigationContainer>
-                    <Tab.Navigator screenOptions={createScreenOptions}>
-                        <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
-                        <Tab.Screen name="Map" component={MapScreen} />
-                        <Tab.Screen name="Settings" component={SettingsScreen} />
-                    </Tab.Navigator>
-                </NavigationContainer>
+                <RestaurantContextProvider>
+                    <NavigationContainer>
+                        <Tab.Navigator screenOptions={createScreenOptions}>
+                            <Tab.Screen
+                                name="Restaurants"
+                                component={RestaurantsScreen}
+                            />
+                            <Tab.Screen name="Map" component={MapScreen} />
+                            <Tab.Screen name="Settings" component={SettingsScreen} />
+                        </Tab.Navigator>
+                    </NavigationContainer>
+                </RestaurantContextProvider>
             </ThemeProvider>
             <ExpoStatusBar style="auto" />
         </>
